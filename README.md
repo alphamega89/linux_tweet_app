@@ -106,6 +106,16 @@ while true; do date >> today;sleep 3; done -- 포그라운드에서 무한반복
 ==> sar를 이용해서 모니터링 결과를 파일에 기록, 원격 서버에도 기록하기..
 sar 2 3 > 파일 경로 ---로컬의 파일경로에 모니터링 결과저장..
 
+sar 2 3 > 파일경로 && scp 파일경로 다른컴퓨터IP:디렉토리경로 
+##systat  패키지는 유용하다..
 
 
+## 덮어씀 방지 설정
+[user@localhost ~]$set -o noclobber
+[user@localhost ~]$ ls > out2
+-bash: out2: 이미 있는 파일을 덮어쓸 수 없음
+
+alias  설정시 주의상황..
+
+레벨이 있는데  session level 에서 설정하면 터미널이 종료되면 자동삭제,  user level  에서 설정되면 유저에게는 계속 적용.. system level 에서 설정되면 모든유저 적용..
 
