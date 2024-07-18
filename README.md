@@ -29,5 +29,34 @@ date
 
 uname -a  -- 시스템정보 확인..
 
+sudo --관리자권한으로 명령실행
+ex)sudo yum install httpd
+
+su - 계정 -- 환경변수 유지하면서 다른계정전환 ( root로 권한변경하여 처리등..)
+[user@localhost ~]$ su - root
+암호:
+[root@localhost ~]# ^C
+
+**다시 돌아갈때..
+[root@localhost ~]# su - user
+[user@localhost ~]$
+
+
+
+[user@localhost ~]$ which vi
+/usr/bin/vi
+[user@localhost ~]$ ls -l /bin/vi
+-rwxr-xr-x. 1 root root 691  3월  1  2023 /bin/vi
+[user@localhost ~]$
+
+**
+[user@localhost ~]$ grep root /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+operator:x:11:0:operator:/root:/sbin/nologin
+
+
+
+
+
 
  
