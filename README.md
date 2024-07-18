@@ -49,13 +49,14 @@ su - 계정 -- 환경변수 유지하면서 다른계정전환 ( root로 권한�
 -rwxr-xr-x. 1 root root 691  3월  1  2023 /bin/vi
 [user@localhost ~]$
 
-**
+**사용자의 기본 쉘 확인..
 [user@localhost ~]$ grep root /etc/passwd
 root:x:0:0:root:/root:/bin/bash
 operator:x:11:0:operator:/root:/sbin/nologin
 
 
-
+**텍스트에서 특정단어를 포함한 내용만 추출..
+grep 단어 파일경로..
 
 
 
