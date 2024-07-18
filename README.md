@@ -55,8 +55,48 @@ root:x:0:0:root:/root:/bin/bash
 operator:x:11:0:operator:/root:/sbin/nologin
 
 
+** > 결과 저장
+** >> 기존파일의 내용 뒤에 결과추가
+
 **텍스트에서 특정단어를 포함한 내용만 추출..
 grep 단어 파일경로..
+[user@localhost ~]$ date > out2
+[user@localhost ~]$ cat out2
+2024. 07. 18. (목) 15:14:40 KST
+[user@localhost ~]$ ls -a >> out2
+[user@localhost ~]$ cat out2
+2024. 07. 18. (목) 15:14:40 KST
+.
+..
+.bash_history
+.bash_logout
+.bash_profile
+.bashrc
+.cache
+.config
+.exrc
+.lesshst
+.local
+.mozilla
+.viminfo
+exrc
+out1
+out2
+sampla.txt
+sample.txt
+~exrc
+공개
+다운로드
+문서
+바탕화면
+비디오
+사진
+서식
+음악
+[user@localhost ~]$
+
+..
+
 
 
 
