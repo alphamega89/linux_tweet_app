@@ -118,4 +118,25 @@ sar 2 3 > 파일경로 && scp 파일경로 다른컴퓨터IP:디렉토리경로
 alias  설정시 주의상황..
 
 레벨이 있는데  session level 에서 설정하면 터미널이 종료되면 자동삭제,  user level  에서 설정되면 유저에게는 계속 적용.. system level 에서 설정되면 모든유저 적용..
+[root@localhost user]# ps -ef | grep sshd
+root        1532       1  0 11:24 ?        00:00:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+root       37642    1532  0 13:55 ?        00:00:00 sshd: user [priv]
+user       37647   37642  0 13:55 ?        00:00:00 sshd: user@pts/0
+root       38532   38510  0 16:21 pts/0    00:00:00 grep --color=auto sshd
+[root@localhost user]# alias csess='ps -ef | grep sshd'
+[root@localhost user]# csess
+root        1532       1  0 11:24 ?        00:00:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+root       37642    1532  0 13:55 ?        00:00:00 sshd: user [priv]
+user       37647   37642  0 13:55 ?        00:00:00 sshd: user@pts/0
+root       38534   38510  0 16:22 pts/0    00:00:00 grep --color=auto sshd
+
+
+alias  등을  system 레벨로 설정하고자 하는 경우엔 .bashrc  파일에 기록해야함.  .bashrc 에 기록된 내용은 바로 적용되지 않는데, 재부팅 하거나   source .bashrc 명령어를 수행하여 처리..
+
+rm 명령은 파일을 삭제하는 명령인데, 기본명령은 파일을 무조건 삭제하고, -i 옵션을 추가하면 삭제할 때 대화형으로 물어봄...
+잘못된 삭제를 방지하기 위해  rm을 rm -i의 별명으로 사용함..
+
+이렇게 만들때 안좋은 점은 여러파일 삭제시 너무 많이 물어보게됨..
+(품질 4번서버..)
+
 
