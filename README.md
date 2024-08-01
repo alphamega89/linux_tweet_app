@@ -168,3 +168,28 @@ adam  공개  다운로드  문서  바탕화면  비디오  사진  서식  음
 
 **.bashrc 의 alias ls='ls -a' 로 변경했음..
 리눅스에서는 등호양옆에 공백쓰지 않는다.
+
+**ls 명령어로 경로를 썼을시, 파일존재여부, 파일인지 아닌지 확인가능
+**파일인경우 파일명, 디렉토리인경우 경로, 존재하지 않는경우 존재하지 않다고 표시
+[hana@localhost ~]$ ls /etc/hosts
+/etc/hosts
+
+
+[hana@localhost bin]$ vi time.sh
+[hana@localhost bin]$ nano time.sh
+[hana@localhost bin]$ cat time.sh
+#!/bin/bash
+echo -------------------------------------------------
+echo 'current time is' $(date '+%Y-%m-%d:%H-%M-%S')
+echo -------------------------------------------------
+[hana@localhost bin]$ time.sh
+-bash: /home/hana/bin/time.sh: 허가 거부
+[hana@localhost bin]$ chmod 700 time.sh
+[hana@localhost bin]$ time.sh
+-------------------------------------------------
+current time is 2024-08-01:14-29-44
+-------------------------------------------------
+
+
+
+
