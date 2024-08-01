@@ -192,4 +192,119 @@ current time is 2024-08-01:14-29-44
 
 
 
+[hana@localhost bin]$ cd ..
+[hana@localhost ~]$ /bin/time.sh
+-bash: /bin/time.sh: 그런 파일이나 디렉터리가 없습니다
+[hana@localhost ~]$ ./bin/time.sh
+-------------------------------------------------
+current time is 2024-08-01:14-36-26
+-------------------------------------------------
+
+
+
+[root@localhost ~]# su - user1
+[user1@localhost ~]$ vi .bash_profile
+[user1@localhost ~]$ . .bash_profile
+[user1@localhost ~]$ env | grep ORACLE
+ORACLE_HOME=/u01/app/oracle/product/12.2.0/db_1
+[user1@localhost ~]$ echo $PATH
+/home/user1/.local/bin:/home/user1/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/                user1/.local/bin:/home/user1/bin:/u01/app/oracle/product/12.2.0/db_1/bin
+[user1@localhost ~]$ vi sqlplus
+[user1@localhost ~]$ chmod +x sqlplus
+[user1@localhost ~]$ mv sqlplus /u01/app/oracle/product/12.2.0/db_1/bin/
+[user1@localhost ~]$ sqlplus
+DB connection.
+SQL>
+[user1@localhost ~]$ ls /u01/app/oracle/product/12.2.0/db_1/bin/
+sqlplus
+[user1@localhost ~]$ ls -l /u01/app/oracle/product/12.2.0/db_1/bin/
+합계 4
+-rwxr-xr-x. 1 user1 user1 35  8월  1 14:44 sqlplus
+[user1@localhost ~]$ ls -l
+합계 0
+drwxr-xr-x. 2 user1 user1 6  8월  1 11:22 1234
+[user1@localhost ~]$ cd ~
+[user1@localhost ~]$ ls
+1234
+[user1@localhost ~]$ logout
+[root@localhost ~]# logout
+[hana@localhost ~]$
+
+
+** 권한설정시..
+
+ umask는 설정하지 않을 권한에 대한 기본설정값.
+ 파일은 실행권한이 설정되지 않고 디렉토리에만실행권한이 설정됨.
+
+ 권한설정은 설정값은 rwx rwx rwx
+ 현재 umask 설정은 022
+ 파일의 경우 666 에서 022를 빼면 되고 디렉토리는 777에서 022를 빼면 기본설정값
+ 파일의 경우 기본설정은 644 
+ 디렉토리의 경우 기본설정은 755
+
+ 설정변경하고자 할때 umask하고 설정..
+
+
+ -포그라운드실행 : 작업이 종료될때까지 제어권을 가지고 있는 방식으로 일반적인 명령이 이 방식
+ 인터럽트를 발생시키거나 kill명령을 이용해서 강제 종료 가능
+
+ -백그라운드실행 : 작업중이더라도 제어권을 다른곳으로 넘길 수 있도록 실행하는 방식으로 시간이 오래걸리거나 계속 작업을 수행하는 경우 사용. 명령을 수행할 때 맨 뒤에 &를 추가해주면 됨.
+
+
+ 작업목록 확인 : jobs
+ -백그라운드 작업을전부 확인하는 명령
+
+ CTRL + z : 포그라운드 작업을 일시 중지
+ bg %작업번호 : 백그라운드 작업으로 전환
+ fg %작업번호  : 포그라운드 작업으로 전환
+
+ 로그아웃을 한 후에도 작업을 백그라운드에서 계속 수행하기
+ nohup 명령어 &
+
+작업예약 
+-종류 - 특정시간에 한번만 수행 : at 
+      - 일정한 주기를 가지고 계쏙 수행 : crontab(쉘 프로그래밍을 하고 난 후 학습하면 효과가 뛰어남)
+
+      - at 명령
+      형식 : at [옵션][시각]
+      옵션 
+       l  -현재 실행대기중인 명령의 전체목록을 출력
+       r 작업번호 : 작업번호에 해당하는 명령은 삭제
+       m : 출력결과가 없더라도 작업이 완료되면 사용자에게 메일로 알려줌 --메일설정이 되어있어야함
+       f 파일경로 : 명령어 입력대신 파일 경로에 해당하는 스크립트 파일을 수행.
+
+       작업확인시 : ls - l /var/spool/cron/atjobs
+
+       작업삭제 at -d 작업번호
+
+       at 수행할 명령어 작성
+       at>  CTRL + d를 누르면 작성이 종료되고 <EOT>가 자동으로 입력됨
+
+
+       - crontab 
+       작업을 주기적으로 수행할 수 있도록 해주는 명령
+       사용자별로 설정
+       형식
+        crontab [-u 유저아이디][옵션][파일 경로]
+       옵션
+        e: 편집
+        l: 목록을 출력
+        r: 파일삭제
+
+        파일작성시 주의점은 한줄에 하나의 명령만 기재되어야 함.
+
+       시간설정을 할 때
+       분(0~59) 시(0~23) 일(1~31) 월(1~12) 요일(0~6) 작업내용
+       *을 설정하면 모든 시간이 됨.
+       -을 이용하여 범위 설정가능
+       쉼표를 이용하면 배열
+       /이용하면 단계
+
+       30 * * * * 작업: 매시간 30분마다 수행
+       0,30 * * * * 작업 : 매시간 0,30마다 수행
+       0, * * * 1-5 : 월화수목금 매시간(정각) 수행
+       0-59/2 --2분마다 수행
+
+       실제작업을 설정할 때는 ?.sh 파일을 만들어서 수행
+       sh 파일을 만들시 권한설정에 유의해야함.
 
